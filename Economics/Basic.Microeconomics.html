@@ -2,105 +2,226 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta property="og:image" content="">
+    <meta property="og:image" content="https://cdn.jsdelivr.net/gh/fyaz05/Study@main/Resources/micro.logo.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprehensive Microeconomics Notes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Microeconomics Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
     <style>
         :root {
-            --primary-color: #03dac6;
-            --secondary-color: #ff9800;
-            --accent-color: #8bc34a;
-            --text-color: #d0d0d0;
             --bg-color: #121212;
-            --section-bg-color: #1e1e1e;
-            --icon-bg-color: #03dac6;
+            --section-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --highlight-color: #64ffda;
+            --accent-color: #ff7597;
+            --secondary-color: #7b39ed;
         }
-
+        .light-mode {
+            --bg-color: #f0f0f0;
+            --section-bg: #ffffff;
+            --text-color: #333333;
+            --highlight-color: #00897b;
+            --accent-color: #e91e63;
+            --secondary-color: #6200ea;
+        }
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
         body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
             background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
         }
-
         .container {
-            max-width: 1100px;
-            margin: auto;
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
-            animation: fadeIn 1s forwards;
         }
-
-        h1, h2, h3, h4 {
-            font-family: 'Merriweather', serif;
-            margin-bottom: 20px;
-            font-weight: bold;
+        aside {
+            width: 250px;
+            position: sticky;
+            top: 20px;
+            height: 90vh;
+            overflow-y: auto;
+            align-self: flex-start;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) var(--section-bg);
         }
-
-        h1 {
-            font-size: 2.5rem;
-            text-align: center;
-            color: var(--primary-color);
-            margin-top: 40px;
+        aside::-webkit-scrollbar {
+            width: 8px;
         }
-
-        h2 {
-            font-size: 2rem;
-            color: var(--secondary-color);
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        h3, h4 {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        h3 i, h4 i {
-            margin-right: 10px;
-        }
-
-        .section {
-            background-color: var(--section-bg-color);
+        aside::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
             border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
-
-        ul, ol {
-            list-style-position: inside;
+        main {
+            flex-grow: 1;
+            margin-left: 30px;
+        }
+        .title {
+            font-size: 2.5rem;
+            color: var(--highlight-color);
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+        }
+        #toc {
+            background-color: var(--section-bg);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        #toc:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        #toc h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+        #toc ul {
+            list-style-type: none;
+        }
+        #toc li {
+            margin-bottom: 10px;
+        }
+        #toc a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+        #toc a:hover {
+            color: var(--highlight-color);
+            transform: translateX(5px);
+        }
+        section {
+            background-color: var(--section-bg);
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards;
+            animation-delay: calc(var(--animation-order) * 0.3s);
+            transition: all 0.3s ease;
+        }
+        section:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        h2 {
+            display: flex;
+            align-items: center;
+            font-size: 1.6rem;
+            color: var(--highlight-color);
+            margin-bottom: 15px;
+        }
+        h2 i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        p, ul {
+            margin: 10px 0;
+        }
+        ul {
             padding-left: 20px;
         }
-
         li {
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            position: relative;
-            padding-left: 25px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            list-style: none;
         }
-
-        li i {
-            position: absolute;
+        li::before {
+            content: "\f0da";
+            font-family: "Font Awesome 5 Free";
+            display: inline-block;
+            margin-right: 8px;
+            color: var(--accent-color);
+            font-weight: 900;
+        }
+        strong {
+            color: var(--secondary-color);
+        }
+        #search-container {
+            margin-bottom: 20px;
+        }
+        #search-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--section-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        #search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--highlight-color);
+        }
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        #back-to-top:hover {
+            background-color: var(--highlight-color);
+            transform: translateY(-3px);
+        }
+        #mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #mode-toggle:hover {
+            color: var(--highlight-color);
+            transform: rotate(180deg);
+        }
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background: var(--section-bg);
+            position: fixed;
+            top: 0;
             left: 0;
-            top: 3px;
-            color: var(--icon-bg-color);
+            z-index: 1000;
         }
-
-        @keyframes fadeIn {
+        .progress-bar {
+            height: 5px;
+            background: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -110,741 +231,819 @@
                 transform: translateY(0);
             }
         }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.6rem; }
-            h3 { font-size: 1.2rem; }
-            .section { padding: 20px; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-
-        .copyright {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            background-color: #141414;
-            color: #9e9e9e;
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(var(--accent-color), 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(var(--accent-color), 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(var(--accent-color), 0);
+            }
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            aside {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+            }
+            main {
+                margin-left: 0;
+            }
+            .title {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.4rem;
+            }
+            #mode-toggle {
+                top: 10px;
+                right: 10px;
+            }
+            #back-to-top {
+                bottom: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1><i class="fas fa-book-open icon"></i> Comprehensive Microeconomics Notes</h1>
-
-        <!-- Section 1: Introduction to Microeconomics -->
-        <div class="section animated">
-            <h2><i class="fas fa-microscope icon"></i> 1. Introduction to Microeconomics</h2>
-            <h3><i class="fas fa-book icon"></i> Definition and Scope</h3>
-            <ul>
-                <li><i class="fas fa-circle"></i><strong>Definition:</strong> Study of individual economic units (consumers, firms, markets).</li>
-                <li><i class="fas fa-circle"></i><strong>Scope:</strong> Consumer behavior, firm theory, market structures, resource allocation.</li>
-                <li><i class="fas fa-circle"></i><strong>Extensions:</strong> Game theory, information economics, behavioral economics.</li>
-            </ul>
-            <h3><i class="fas fa-lightbulb icon"></i> Importance</h3>
-            <ul>
-                <li><i class="fas fa-circle"></i><strong>Behavioral Insights:</strong> Reveals patterns in consumer preferences and firm strategies.</li>
-                <li><i class="fas fa-circle"></i><strong>Policy Applications:</strong> Informs regulatory decisions and market interventions.</li>
-            </ul>
-            <h3><i class="fas fa-tasks icon"></i> Methodology</h3>
-            <h4><i class="fas fa-balance-scale icon"></i> Positive vs. Normative Analysis:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Positive: What is (factual analysis).</li>
-                <li><i class="fas fa-chevron-right"></i>Normative: What ought to be (value judgments).</li>
-            </ul>
-            <h4><i class="fas fa-project-diagram icon"></i> Models and Assumptions:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Simplification of complex realities to derive insights.</li>
-                <li><i class="fas fa-chevron-right"></i>Ceteris paribus assumption: "all else being equal".</li>
-            </ul>
-            <h3><i class="fas fa-chart-pie icon"></i> Key Principles</h3>
-            <ul>
-                <li><i class="fas fa-circle"></i><strong>Scarcity and Choice:</strong> Limited resources necessitate trade-offs.</li>
-                <li><i class="fas fa-circle"></i><strong>Incentives:</strong> Economic agents respond to incentives.</li>
-                <li><i class="fas fa-circle"></i><strong>Opportunity Cost:</strong> The next best alternative forgone.</li>
-            </ul>
-        </div>
-
-        <!-- Section 2: Demand and Supply Analysis -->
-        <div class="section animated">
-            <h2><i class="fas fa-exchange-alt icon"></i> 2. Demand and Supply Analysis</h2>
-            <h3><i class="fas fa-arrow-up icon"></i> Demand</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Law of Demand:</strong> Inverse relationship between price and quantity demanded.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Determinants:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Price: Primary factor in the demand function.</li>
-                        <li><i class="fas fa-circle"></i>Income: Normal vs. inferior goods.</li>
-                        <li><i class="fas fa-circle"></i>Tastes and Preferences: Influenced by social, cultural factors.</li>
-                        <li><i class="fas fa-circle"></i>Expectations: Anticipated future prices or income changes.</li>
-                        <li><i class="fas fa-circle"></i>Substitutes and Complements: Cross-price effects.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Individual vs. Market Demand:</strong> Aggregation of individual demand curves.</li>
-            </ul>
-            <h3><i class="fas fa-arrow-down icon"></i> Supply</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Law of Supply:</strong> Direct relationship between price and quantity supplied.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Determinants:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Production Cost: Input prices, technology.</li>
-                        <li><i class="fas fa-circle"></i>Technology: Efficiency improvements shift supply curve.</li>
-                        <li><i class="fas fa-circle"></i>Expectations: Anticipated market conditions.</li>
-                        <li><i class="fas fa-circle"></i>Number of Sellers: Market entry/exit effects.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Individual vs. Market Supply:</strong> Aggregation of individual firm supply.</li>
-            </ul>
-            <h3><i class="fas fa-balance-scale-right icon"></i> Market Equilibrium</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Equilibrium Price and Quantity:</strong> Intersection of supply and demand curves.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Shifts and Movements:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Movement along curves: Price changes.</li>
-                        <li><i class="fas fa-circle"></i>Shifts of curves: Changes in non-price determinants.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Comparative Statics:</strong> Analysis of equilibrium changes due to parameter shifts.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Disequilibrium and Adjustment:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Surplus: Excess supply at a given price.</li>
-                        <li><i class="fas fa-circle"></i>Shortage: Excess demand at a given price.</li>
-                    </ul>
-                </li>
-            </ul>
-            <h3><i class="fas fa-recycle icon"></i> Dynamic Analysis</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Cobweb Model:</strong> Explains price fluctuations in markets with production lags.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Expectations and Speculation:</strong> Role in shaping market dynamics.</li>
-            </ul>
-        </div>
-
-        <!-- Section 3: Elasticity -->
-        <div class="section animated">
-            <h2><i class="fas fa-ruler-horizontal icon"></i> 3. Elasticity</h2>
-            <h3><i class="fas fa-chart-line icon"></i> Price Elasticity of Demand (PED)</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Definition:</strong> Measure of responsiveness of quantity demanded to price changes.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Formula:</strong> % change in quantity demanded / % change in price.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Types:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Elastic (|PED| > 1): Quantity change > Price change.</li>
-                        <li><i class="fas fa-circle"></i>Inelastic (|PED| < 1): Quantity change < Price change.</li>
-                        <li><i class="fas fa-circle"></i>Unit Elastic (|PED| = 1): Quantity change = Price change.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Determinants:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Availability of substitutes.</li>
-                        <li><i class="fas fa-circle"></i>Necessity vs. luxury goods.</li>
-                        <li><i class="fas fa-circle"></i>Time horizon (short-run vs. long-run elasticity).</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Applications:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Pricing strategies for firms.</li>
-                        <li><i class="fas fa-circle"></i>Tax incidence analysis.</li>
-                    </ul>
-                </li>
-            </ul>
-            <h3><i class="fas fa-wrench icon"></i> Price Elasticity of Supply (PES)</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Definition:</strong> Responsiveness of quantity supplied to price changes.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Formula:</strong> % change in quantity supplied / % change in price.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Determinants:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Time period for production adjustment.</li>
-                        <li><i class="fas fa-circle"></i>Capacity utilization and scalability.</li>
-                        <li><i class="fas fa-circle"></i>Resource mobility and availability.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Applications:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Production planning.</li>
-                        <li><i class="fas fa-circle"></i>Supply chain management.</li>
-                    </ul>
-                </li>
-            </ul>
-            <h3><i class="fas fa-exchange-alt icon"></i> Cross-Price Elasticity</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Definition:</strong> Effect of price change in one good on quantity demanded of another.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Formula:</strong> % change in quantity demanded of good A / % change in price of good B.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Interpretation:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Positive: Substitutes.</li>
-                        <li><i class="fas fa-circle"></i>Negative: Complements.</li>
-                        <li><i class="fas fa-circle"></i>Zero: Independent goods.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Applications:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Product positioning and marketing strategies.</li>
-                        <li><i class="fas fa-circle"></i>Competitive analysis.</li>
-                    </ul>
-                </li>
-            </ul>
-            <h3><i class="fas fa-coins icon"></i> Income Elasticity of Demand</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Definition:</strong> Responsiveness of demand to changes in consumer income.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Formula:</strong> % change in quantity demanded / % change in income.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Types:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Normal Goods (Positive elasticity).</li>
-                        <li><i class="fas fa-circle"></i>Inferior Goods (Negative elasticity).</li>
-                        <li><i class="fas fa-circle"></i>Luxury vs. Necessity Goods.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Applications:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Market segmentation.</li>
-                        <li><i class="fas fa-circle"></i>Economic development analysis.</li>
-                    </ul>
-                </li>
-            </ul>
-            <h3><i class="fas fa-calculator icon"></i> Arc vs. Point Elasticity</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Point Elasticity:</strong> Elasticity at a specific point on the demand/supply curve.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Arc Elasticity:</strong> Average elasticity over a range of the curve.</li>
-            </ul>
-            <h3><i class="fas fa-sigma icon"></i> Advanced Elasticity Concepts</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Constant Elasticity Functions:</strong> Mathematical properties and applications.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Elasticity in Calculus:</strong> Derivative-based formulations.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Cross-Elasticities in Demand Systems:</strong> Slutsky equation and demand interdependencies.</li>
-            </ul>
-        </div>
-
-        <!-- Section 4: Consumer Theory -->
-        <div class="section animated">
-            <h2><i class="fas fa-user-friends icon"></i> 4. Consumer Theory</h2>
-            <h3><i class="fas fa-smile-beam icon"></i> Utility</h3>
-            <h4><i class="fas fa-user-tag icon"></i> Concepts:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Cardinal vs. Ordinal Utility.</li>
-                <li><i class="fas fa-chevron-right"></i>Total Utility vs. Marginal Utility.</li>
-            </ul>
-            <h4><i class="fas fa-calculator icon"></i> Utility Functions:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Mathematical representations of preferences.</li>
-                <li><i class="fas fa-chevron-right"></i>Common forms: Cobb-Douglas, CES (Constant Elasticity of Substitution).</li>
-            </ul>
-            <h4><i class="fas fa-chart-area icon"></i> Marginal Utility:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Additional satisfaction from consuming an extra unit.</li>
-                <li><i class="fas fa-chevron-right"></i>Law of Diminishing Marginal Utility.</li>
-            </ul>
-            <h3><i class="fas fa-infinity icon"></i> Preferences and Indifference Curves</h3>
-            <h4><i class="fas fa-arrow-right icon"></i> Axioms of Rational Choice:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Completeness, Transitivity, Continuity, Non-satiation.</li>
-            </ul>
-            <h4><i class="fas fa-circle icon"></i> Indifference Curves:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Definition: Combinations of goods providing equal satisfaction.</li>
-                <li><i class="fas fa-chevron-right"></i>Properties: Downward sloping, convex to origin.</li>
-            </ul>
-            <h4><i class="fas fa-thermometer-half icon"></i> Marginal Rate of Substitution (MRS):</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Rate at which a consumer is willing to substitute one good for another.</li>
-                <li><i class="fas fa-chevron-right"></i>Relationship to marginal utility.</li>
-            </ul>
-            <h3><i class="fas fa-wallet icon"></i> Budget Constraint</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Definition:</strong> Limit on consumption choices based on income and prices.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Mathematical Representation:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Linear equation in two-good model.</li>
-                        <li><i class="fas fa-circle"></i>Extensions to multiple goods.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Effects of Income and Price Changes:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Shifts and rotations of the budget line.</li>
-                    </ul>
-                </li>
-            </ul>
-            <h3><i class="fas fa-chart-line icon"></i> Consumer Choice and Optimization</h3>
-            <h4><i class="fas fa-cogs icon"></i> Utility Maximization:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Tangency condition: MRS = Price Ratio.</li>
-                <li><i class="fas fa-chevron-right"></i>Lagrangian method for constrained optimization.</li>
-            </ul>
-            <h4><i class="fas fa-hand-point-right icon"></i> Corner Solutions:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>When tangency conditions don't hold.</li>
-            </ul>
-            <h4><i class="fas fa-cube icon"></i> Applications:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Deriving individual demand curves.</li>
-                <li><i class="fas fa-chevron-right"></i>Engel curves and income consumption curves.</li>
-            </ul>
-            <h3><i class="fas fa-sync-alt icon"></i> Income and Substitution Effects</h3>
-            <h4><i class="fas fa-equals icon"></i> Slutsky Equation:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Decomposing price effects into income and substitution components.</li>
-            </ul>
-            <h4><i class="fas fa-random icon"></i> Hicks vs. Slutsky Decomposition:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Different approaches to isolating effects.</li>
-            </ul>
-            <h4><i class="fas fa-flask icon"></i> Applications:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Giffen goods phenomenon.</li>
-                <li><i class="fas fa-chevron-right"></i>Labor supply decisions (backward-bending supply curve).</li>
-            </ul>
-            <h3><i class="fas fa-eye icon"></i> Revealed Preference Theory</h3>
-            <h4><i class="fas fa-check-circle icon"></i> Weak Axiom of Revealed Preference (WARP):</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Consistency in consumer choices.</li>
-            </ul>
-            <h4><i class="fas fa-arrow-alt-circle-right icon"></i> Strong Axiom of Revealed Preference (SARP):</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Transitivity in revealed preferences.</li>
-            </ul>
-            <h4><i class="fas fa-play-circle icon"></i> Applications:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Testing utility maximization hypothesis.</li>
-                <li><i class="fas fa-chevron-right"></i>Constructing indifference curves from observed choices.</li>
-            </ul>
-        </div>
-
-        <!-- Section 5: Production and Costs -->
-        <div class="section animated">
-            <h2><i class="fas fa-cogs icon"></i> 5. Production and Costs</h2>
-            <h3><i class="fas fa-industry icon"></i> Production Function</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Definition:</strong> Relationship between inputs (factors of production) and output.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Types:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Short-run: At least one input is fixed.</li>
-                        <li><i class="fas fa-circle"></i>Long-run: All inputs are variable.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Key Concepts:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Marginal Product: Additional output from one more unit of input.</li>
-                        <li><i class="fas fa-circle"></i>Average Product: Output per unit of input.</li>
-                        <li><i class="fas fa-circle"></i>Returns to Scale: Output response to proportional input changes.</li>
-                    </ul>
-                </li>
-            </ul>
-            <h3><i class="fas fa-chart-line icon"></i> Isoquants and Isocosts</h3>
-            <h4><i class="fas fa-grip-lines icon"></i> Isoquants:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Combinations of inputs producing the same output level.</li>
-                <li><i class="fas fa-chevron-right"></i>Properties: Convex to origin, downward sloping.</li>
-            </ul>
-            <h4><i class="fas fa-tint icon"></i> Isocosts:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Combinations of inputs with the same total cost.</li>
-                <li><i class="fas fa-chevron-right"></i>Slope determined by input price ratio.</li>
-            </ul>
-            <h4><i class="fas fa-equals icon"></i> Producer Equilibrium:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Tangency of isoquant and isocost (least-cost combination).</li>
-            </ul>
-            <h3><i class="fas fa-cash-register icon"></i> Cost Functions</h3>
-            <h4><i class="fas fa-clock icon"></i> Short-run Costs:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Fixed Costs (FC): Costs that don't vary with output.</li>
-                <li><i class="fas fa-chevron-right"></i>Variable Costs (VC): Costs that change with output.</li>
-                <li><i class="fas fa-chevron-right"></i>Total Cost (TC): FC + VC.</li>
-            </ul>
-            <h4><i class="fas fa-tachometer-alt icon"></i> Average Costs:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Average Fixed Cost (AFC): FC/Q.</li>
-                <li><i class="fas fa-chevron-right"></i>Average Variable Cost (AVC): VC/Q.</li>
-                <li><i class="fas fa-chevron-right"></i>Average Total Cost (ATC): TC/Q.</li>
-            </ul>
-            <h4><i class="fas fa-chart-area icon"></i> Marginal Cost (MC):</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Change in total cost from producing one more unit.</li>
-                <li><i class="fas fa-chevron-right"></i>Relationship to Average Costs: MC curve intersects AVC and ATC at their minimum points.</li>
-            </ul>
-            <h3><i class="fas fa-arrows-alt icon"></i> Economies and Diseconomies of Scale</h3>
-            <h4><i class="fas fa-level-up-alt icon"></i> Economies of Scale:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Decreasing long-run average costs as output increases.</li>
-                <li><i class="fas fa-chevron-right"></i>Sources: Specialization, bulk buying, spreading fixed costs.</li>
-            </ul>
-            <h4><i class="fas fa-level-down-alt icon"></i> Diseconomies of Scale:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Increasing long-run average costs beyond a certain output level.</li>
-                <li><i class="fas fa-chevron-right"></i>Causes: Coordination problems, bureaucracy.</li>
-            </ul>
-            <h4><i class="fas fa-angle-double-down icon"></i> Minimum Efficient Scale:</h4>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i>Optimal plant size in long-run.</li>
-            </ul>
-            <h3><i class="fas fa-microscope icon"></i> Advanced Production Analysis</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Elasticity of Substitution:</strong> Measures the ease of substituting one input for another.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Cobb-Douglas Production Function:</strong> Properties and applications.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Technological Change:</strong> Neutral vs. biased technological progress.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Data Envelopment Analysis (DEA):</strong> Non-parametric approach to efficiency measurement.</li>
-            </ul>
-            <h3><i class="fas fa-digital-tachograph icon"></i> Production in the Digital Economy</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Network Effects:</strong> Increasing returns to scale in digital platforms.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Zero Marginal Cost Phenomenon:</strong> Implications for pricing and market structure.</li>
-            </ul>
-        </div>
-
-        <!-- Section 6: Market Structures -->
-        <div class="section animated">
-            <h2><i class="fas fa-building icon"></i> 6. Market Structures</h2>
-            <h3><i class="fas fa-equals icon"></i> Perfect Competition</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Characteristics:</strong> Many small firms, homogeneous products, perfect information, free entry/exit.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Firm's Demand Curve:</strong> Perfectly elastic (horizontal line at market price).</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Short-run Equilibrium:</strong> 
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Profit maximization: MC = MR = P.</li>
-                        <li><i class="fas fa-circle"></i>Possible outcomes: Economic profit, normal profit, or loss.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Long-run Equilibrium:</strong> Zero economic profit (P = minimum ATC).</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Supply Curve:</strong> Short-run: MC curve above AVC, Long-run: Horizontal at minimum ATC.</li>
-            </ul>
-            <h3><i class="fas fa-lock icon"></i> Monopoly</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Characteristics:</strong> Single seller, unique product, high barriers to entry.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Profit Maximization:</strong> MR = MC, where MR is derived from downward-sloping demand curve.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Price Discrimination:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>First-degree (perfect), second-degree (quantity-based), third-degree (group-based).</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Deadweight Loss:</strong> Efficiency loss compared to perfect competition.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Natural Monopoly:</strong> Decreasing average cost over entire relevant range of output.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Regulation:</strong> Price ceiling, rate-of-return regulation, contestable markets theory.</li>
-            </ul>
-            <h3><i class="fas fa-layer-group icon"></i> Oligopoly</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Models:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Cournot: Firms compete on quantity.</li>
-                        <li><i class="fas fa-circle"></i>Bertrand: Firms compete on price.</li>
-                        <li><i class="fas fa-circle"></i>Stackelberg: Sequential quantity decisions.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Game Theory Applications:</strong> Prisoner's Dilemma, repeated games, and tacit collusion.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Strategic Behavior:</strong> Entry deterrence, capacity decisions, product differentiation.</li>
-            </ul>
-            <h3><i class="fas fa-tags icon"></i> Monopolistic Competition</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Characteristics:</strong> Many sellers, product differentiation, free entry/exit.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Short-run vs. Long-run Equilibrium:</strong>
-                    <ul>
-                        <li><i class="fas fa-circle"></i>Short-run: Possible economic profits or losses.</li>
-                        <li><i class="fas fa-circle"></i>Long-run: Zero economic profit, excess capacity.</li>
-                    </ul>
-                </li>
-                <li><i class="fas fa-chevron-right"></i><strong>Product Differentiation:</strong> Vertical vs. horizontal differentiation.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Advertising and Non-price Competition:</strong> Creating perceived differentiation.</li>
-            </ul>
-            <h3><i class="fas fa-exchange-alt icon"></i> Contestable Markets</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Theory:</strong> Potential competition disciplines market behavior.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Conditions:</strong> Low sunk costs, access to technology.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Implications:</strong> Efficient outcomes possible even with few firms.</li>
-            </ul>
-            <h3><i class="fas fa-lightbulb icon"></i> Business Strategy in Different Market Structures</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Perfect Competition:</strong> Cost leadership strategies, efficiency maximization.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Monopoly:</strong> Barrier maintenance, dynamic pricing strategies.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Oligopoly:</strong> Game theory in business decisions.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Monopolistic Competition:</strong> Product differentiation tactics, branding strategies.</li>
-            </ul>
-            <h3><i class="fas fa-chart-bar icon"></i> Empirical Industrial Organization</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Structure-Conduct-Performance Paradigm:</strong> Relationship between market structure and firm behavior.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>New Empirical Industrial Organization (NEIO):</strong> Estimating market power and conduct parameters.</li>
-            </ul>
-            <h3><i class="fas fa-globe-americas icon"></i> Global Competition</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Trade and Market Structure:</strong> Impact of international trade.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Multinational Firms:</strong> Foreign direct investment decisions, transfer pricing strategies.</li>
-            </ul>
-        </div>
-
-        <!-- Section 7: Factor Markets -->
-        <div class="section animated">
-            <h2><i class="fas fa-briefcase icon"></i> 7. Factor Markets</h2>
-            <h3><i class="fas fa-hammer icon"></i> Labor Markets</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Demand for Labor:</strong> Marginal Revenue Product of Labor (MRPL), derived demand concept.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Supply of Labor:</strong> Individual labor supply curve, market labor supply aggregation.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Wage Determination:</strong> Competitive labor markets, monopsony.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Human Capital Theory:</strong> Investment in skills, returns to education.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Labor Market Discrimination:</strong> Statistical vs. taste-based discrimination, wage gaps.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Unions and Collective Bargaining:</strong> Effects on wages and employment.</li>
-            </ul>
-            <h3><i class="fas fa-wallet icon"></i> Capital Markets</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Types of Capital:</strong> Physical capital vs. financial capital.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Investment Decisions:</strong> Net Present Value (NPV), Internal Rate of Return (IRR).</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Cost of Capital:</strong> Weighted Average Cost of Capital (WACC).</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Efficient Market Hypothesis:</strong> Weak, semi-strong, and strong forms.</li>
-            </ul>
-            <h3><i class="fas fa-seedling icon"></i> Land and Natural Resources</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Economic Rent:</strong> Ricardian theory of rent.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Resource Extraction:</strong> Hotelling's rule for non-renewable resources.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Sustainability:</strong> Renewable vs. non-renewable resources, tragedy of the commons.</li>
-            </ul>
-            <h3><i class="fas fa-globe icon"></i> Global Labor Markets</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Outsourcing and Offshoring:</strong> Cost-benefit analysis, impact on domestic and foreign markets.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Immigration and Labor Mobility:</strong> Effects on wages and employment.</li>
-            </ul>
-        </div>
-
-        <!-- Section 8: Advanced Game Theory -->
-        <div class="section animated">
-            <h2><i class="fas fa-dice icon"></i> 8. Advanced Game Theory</h2>
-            <h3><i class="fas fa-chess icon"></i> Dynamic Games</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Definition:</strong> Games where players move sequentially.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Extensive Form Representation:</strong> Tree diagrams showing sequence of moves.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Subgame Perfect Equilibrium:</strong> Refinement of Nash equilibrium for dynamic games.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Applications:</strong> Entry deterrence, sequential bargaining.</li>
-            </ul>
-            <h3><i class="fas fa-user-secret icon"></i> Bayesian Games</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Concept:</strong> Games with incomplete information.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Harsanyi Transformation:</strong> Converting games of incomplete information to games of imperfect information.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Bayesian Nash Equilibrium:</strong> Equilibrium concept for games of incomplete information.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Applications:</strong> Auctions, signaling games.</li>
-            </ul>
-            <h3><i class="fas fa-bullseye icon"></i> Business Strategy Applications</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Commitment Strategies:</strong> Using irreversible investments to deter entry.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Reputation Building:</strong> Importance of reputation in repeated games.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Coopetition:</strong> Simultaneous competition and cooperation in markets.</li>
-            </ul>
-        </div>
-
-        <!-- Section 9: Information Economics -->
-        <div class="section animated">
-            <h2><i class="fas fa-info-circle icon"></i> 9. Information Economics</h2>
-            <h3><i class="fas fa-times-circle icon"></i> Adverse Selection</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Definition:</strong> Market inefficiency due to information asymmetry before a transaction.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Examples:</strong> Used car market, insurance markets.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Solutions:</strong> Screening, signaling, market design.</li>
-            </ul>
-            <h3><i class="fas fa-exclamation-circle icon"></i> Moral Hazard</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Concept:</strong> Changes in behavior when individuals are protected from risk.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Principal-Agent Problem:</strong> Misaligned incentives between principals and agents.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Solutions:</strong> Incentive contracts, monitoring.</li>
-            </ul>
-            <h3><i class="fas fa-bell icon"></i> Signaling</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Theory:</strong> Actions taken by informed parties to credibly convey information.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Spence Signaling Model:</strong> Education as a signal in labor markets.</li>
-            </ul>
-            <h3><i class="fas fa-filter icon"></i> Screening</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Concept:</strong> Uninformed parties designing mechanisms to elicit information.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Self-Selection:</strong> Offering a menu of options to induce revelation of private information.</li>
-            </ul>
-        </div>
-
-        <!-- Section 10: Behavioral Economics -->
-        <div class="section animated">
-            <h2><i class="fas fa-brain icon"></i> 10. Behavioral Economics</h2>
-            <h3><i class="fas fa-chalkboard-teacher icon"></i> Prospect Theory</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Key Concepts:</strong> Reference dependence, loss aversion, diminishing sensitivity.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Value Function:</strong> S-shaped curve capturing risk attitudes.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Probability Weighting:</strong> Overweighting of small probabilities.</li>
-            </ul>
-            <h3><i class="fas fa-file-invoice-dollar icon"></i> Mental Accounting</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Definition:</strong> Cognitive operations used to organize financial activities.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Key Aspects:</strong> Categorization of expenditures, sunk cost fallacy.</li>
-            </ul>
-            <h3><i class="fas fa-chart-pie icon"></i> Behavioral Finance</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Market Anomalies:</strong> Patterns inconsistent with efficient market hypothesis.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Investor Biases:</strong> Overconfidence, herding behavior.</li>
-            </ul>
-        </div>
-
-        <!-- Section 11: Advanced Industrial Organization -->
-        <div class="section animated">
-            <h2><i class="fas fa-network-wired icon"></i> 11. Advanced Industrial Organization</h2>
-            <h3><i class="fas fa-exchange-alt icon"></i> Two-Sided Markets</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Definition:</strong> Markets where platforms facilitate interactions between two user groups.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Network Effects:</strong> Cross-side and same-side externalities.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Pricing Strategies:</strong> Balancing act to get both sides on board.</li>
-            </ul>
-            <h3><i class="fas fa-layer-group icon"></i> Network Effects</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Types:</strong> Direct and indirect network effects.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Critical Mass:</strong> Tipping point for widespread adoption.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Business Strategies:</strong> Early user acquisition.</li>
-            </ul>
-            <h3><i class="fas fa-chart-area icon"></i> Digital Economy Business Models</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Freemium Models:</strong> Basic services for free, premium features for a fee.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Data Monetization:</strong> Leveraging user data for targeted advertising.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Platform Ecosystems:</strong> Creating value through third-party complementors.</li>
-            </ul>
-        </div>
-
-        <!-- Section 12: Auction Theory -->
-        <div class="section animated">
-            <h2><i class="fas fa-gavel icon"></i> 12. Auction Theory</h2>
-            <h3><i class="fas fa-tag icon"></i> Auction Formats</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Open Auctions:</strong> English (ascending bid), Dutch (descending bid).</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Sealed-Bid Auctions:</strong> First-price sealed-bid, second-price sealed-bid (Vickrey auction).</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Common Value vs. Private Value Auctions:</strong> Differences in information structure.</li>
-            </ul>
-            <h3><i class="fas fa-equals icon"></i> Revenue Equivalence Theorem</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Statement:</strong> Under certain conditions, different auction formats yield the same expected revenue.</li>
-            </ul>
-            <h3><i class="fas fa-business-time icon"></i> Business and Policy Applications</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Spectrum Auctions:</strong> Allocation of radio frequencies.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Treasury Bond Auctions:</strong> Government debt issuance.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Online Marketplaces:</strong> eBay, Google AdWords.</li>
-            </ul>
-        </div>
-
-        <!-- Section 13: Experimental Economics -->
-        <div class="section animated">
-            <h2><i class="fas fa-flask icon"></i> 13. Experimental Economics</h2>
-            <h3><i class="fas fa-vial icon"></i> Methodology</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Laboratory Experiments:</strong> Controlled environments to test economic theories.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Field Experiments:</strong> Real-world settings with randomized interventions.</li>
-            </ul>
-            <h3><i class="fas fa-chart-bar icon"></i> Key Findings</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Ultimatum Game:</strong> Deviations from pure self-interest predictions.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Public Goods Games:</strong> Free-riding and cooperation dynamics.</li>
-            </ul>
-            <h3><i class="fas fa-briefcase icon"></i> Business Applications</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>A/B Testing:</strong> Experimental approach to product and website design.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Organizational Design:</strong> Testing incentive structures and team dynamics.</li>
-            </ul>
-        </div>
-
-        <!-- Section 14: Market Design -->
-        <div class="section animated">
-            <h2><i class="fas fa-cogs icon"></i> 14. Market Design</h2>
-            <h3><i class="fas fa-wrench icon"></i> Principles</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Thickness:</strong> Bringing together a sufficient number of market participants.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Congestion Management:</strong> Handling large numbers of transactions quickly.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Safety:</strong> Making it safe to participate with truthful information.</li>
-            </ul>
-            <h3><i class="fas fa-graduation-cap icon"></i> Matching Markets</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Deferred Acceptance Algorithm:</strong> Stable matching in two-sided markets.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>School Choice Systems:</strong> Designing efficient and fair school assignment mechanisms.</li>
-            </ul>
-            <h3><i class="fas fa-briefcase icon"></i> Business Applications</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Labor Market Platforms:</strong> Designing efficient job matching systems.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Supply Chain Optimization:</strong> Applying matching principles.</li>
-            </ul>
-        </div>
-
-        <!-- Section 15: Advanced Econometric Methods -->
-        <div class="section animated">
-            <h2><i class="fas fa-chart-line icon"></i> 15. Advanced Econometric Methods</h2>
-            <h3><i class="fas fa-toolbox icon"></i> Instrumental Variables</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Concept:</strong> Using instruments to address endogeneity issues.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Two-Stage Least Squares (2SLS):</strong> Implementation and interpretation.</li>
-            </ul>
-            <h3><i class="fas fa-exchange-alt icon"></i> Difference-in-Differences</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Method:</strong> Comparing treatment and control groups before and after an intervention.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Applications:</strong> Evaluating policy changes, natural experiments.</li>
-            </ul>
-            <h3><i class="fas fa-chart-pie icon"></i> Regression Discontinuity Design</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Sharp RD:</strong> Treatment assigned based on a cutoff value.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Applications:</strong> Evaluating programs with eligibility thresholds.</li>
-            </ul>
-        </div>
-
-        <!-- Section 16: Environmental Economics -->
-        <div class="section animated">
-            <h2><i class="fas fa-leaf icon"></i> 16. Environmental Economics</h2>
-            <h3><i class="fas fa-smog icon"></i> Externalities</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Definition:</strong> Costs or benefits affecting third parties not involved in the transaction.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Coase Theorem:</strong> Efficiency through bargaining in absence of transaction costs.</li>
-            </ul>
-            <h3><i class="fas fa-dollar-sign icon"></i> Pigouvian Taxes</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Concept:</strong> Taxes to internalize negative externalities.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Applications:</strong> Carbon taxes, congestion charges.</li>
-            </ul>
-            <h3><i class="fas fa-exchange-alt icon"></i> Cap-and-Trade Systems</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Mechanism:</strong> Setting a cap on total emissions and allowing trade of permits.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Real-World Examples:</strong> EU Emissions Trading System, US Acid Rain Program.</li>
-            </ul>
-            <h3><i class="fas fa-briefcase icon"></i> Business Implications</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Corporate Social Responsibility:</strong> Voluntary internalization of externalities.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Green Technology Innovation:</strong> Incentives and strategic responses.</li>
-            </ul>
-        </div>
-
-        <!-- Section 17: Public Choice Theory -->
-        <div class="section animated">
-            <h2><i class="fas fa-vote-yea icon"></i> 17. Public Choice Theory</h2>
-            <h3><i class="fas fa-users icon"></i> Collective Decision Making</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Voting Paradoxes:</strong> Arrow's Impossibility Theorem, Condorcet Paradox.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Median Voter Theorem:</strong> Convergence to median preference.</li>
-            </ul>
-            <h3><i class="fas fa-building icon"></i> Bureaucracy and Regulation</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Principal-Agent Problems:</strong> Misaligned incentives between voters and politicians.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Regulatory Capture:</strong> Industries influencing their regulators.</li>
-            </ul>
-            <h3><i class="fas fa-briefcase icon"></i> Business Strategy</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Lobbying Strategies:</strong> Influencing policy outcomes.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Political Risk Assessment:</strong> Evaluating policy uncertainty.</li>
-            </ul>
-        </div>
-
-        <!-- Section 18: Mechanism Design -->
-        <div class="section animated">
-            <h2><i class="fas fa-tools icon"></i> 18. Mechanism Design</h2>
-            <h3><i class="fas fa-bullseye icon"></i> Principles</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Incentive Compatibility:</strong> Designing mechanisms where truthful revelation is optimal.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Individual Rationality:</strong> Ensuring voluntary participation.</li>
-            </ul>
-            <h3><i class="fas fa-file-alt icon"></i> Contract Theory</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Optimal Contracting:</strong> Aligning incentives.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Incomplete Contracts:</strong> Dealing with unforeseen contingencies.</li>
-            </ul>
-            <h3><i class="fas fa-building icon"></i> Organizational Design Applications</h3>
-            <ul>
-                <li><i class="fas fa-chevron-right"></i><strong>Compensation Structures:</strong> Designing incentive-compatible pay schemes.</li>
-                <li><i class="fas fa-chevron-right"></i><strong>Information Systems:</strong> Efficient information sharing within organizations.</li>
-            </ul>
-        </div>
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
     </div>
+    <button id="mode-toggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-moon"></i>
+    </button>
+    <div class="container">
+        <aside>
+            <div id="search-container">
+                <input type="text" id="search-input" placeholder="Search notes..." aria-label="Search notes">
+            </div>
+            <nav id="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#section1">1. Introduction to Microeconomics</a></li>
+                    <li><a href="#section2">2. Demand and Supply Analysis</a></li>
+                    <li><a href="#section3">3. Elasticity</a></li>
+                    <li><a href="#section4">4. Consumer Theory</a></li>
+                    <li><a href="#section5">5. Production and Costs</a></li>
+                    <li><a href="#section6">6. Market Structures</a></li>
+                    <li><a href="#section7">7. Factor Markets</a></li>
+                    <li><a href="#section8">8. Advanced Game Theory</a></li>
+                    <li><a href="#section9">9. Information Economics</a></li>
+                    <li><a href="#section10">10. Behavioral Economics</a></li>
+                    <li><a href="#section11">11. Advanced Industrial Organization</a></li>
+                    <li><a href="#section12">12. Auction Theory</a></li>
+                    <li><a href="#section13">13. Experimental Economics</a></li>
+                    <li><a href="#section14">14. Market Design</a></li>
+                    <li><a href="#section15">15. Advanced Econometric Methods</a></li>
+                    <li><a href="#section16">16. Environmental Economics</a></li>
+                    <li><a href="#section17">17. Public Choice Theory</a></li>
+                    <li><a href="#section18">18. Mechanism Design</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main>
+            <h1 class="title">Microeconomics Notes</h1>
+            
+            <section id="section1" style="--animation-order: 0;">
+                <h2><i class="fas fa-book"></i> Introduction to Microeconomics</h2>
+                <ul>
+                    <li><strong>Definition and Scope</strong></li>
+                    <ul>
+                        <li>Definition: Study of individual economic units (consumers, firms, markets).</li>
+                        <li>Scope: Consumer behavior, firm theory, market structures, resource allocation.</li>
+                        <li>Extensions: Game theory, information economics, behavioral economics.</li>
+                    </ul>
+                    <li><strong>Importance</strong></li>
+                    <ul>
+                        <li>Behavioral Insights: Reveals patterns in consumer preferences and firm strategies.</li>
+                        <li>Policy Applications: Informs regulatory decisions and market interventions.</li>
+                    </ul>
+                    <li><strong>Methodology</strong></li>
+                    <ul>
+                        <li>Positive vs. Normative Analysis:</li>
+                        <ul>
+                            <li>Positive: What is (factual analysis).</li>
+                            <li>Normative: What ought to be (value judgments).</li>
+                        </ul>
+                        <li>Models and Assumptions:</li>
+                        <ul>
+                            <li>Simplification of complex realities to derive insights.</li>
+                            <li>Ceteris paribus assumption: "all else being equal".</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Key Principles</strong></li>
+                    <ul>
+                        <li>Scarcity and Choice: Limited resources necessitate trade-offs.</li>
+                        <li>Incentives: Economic agents respond to incentives.</li>
+                        <li>Opportunity Cost: The next best alternative forgone.</li>
+                    </ul>
+                </ul>
+            </section>
+            
+            <section id="section2" style="--animation-order: 1;">
+                <h2><i class="fas fa-signal"></i> Demand and Supply Analysis</h2>
+                <ul>
+                    <li><strong>Demand</strong></li>
+                    <ul>
+                        <li>Law of Demand: Inverse relationship between price and quantity demanded.</li>
+                        <li>Determinants:</li>
+                        <ul>
+                            <li>Price: Primary factor in the demand function.</li>
+                            <li>Income: Normal vs. inferior goods.</li>
+                            <li>Tastes and Preferences: Influenced by social, cultural factors.</li>
+                            <li>Expectations: Anticipated future prices or income changes.</li>
+                            <li>Substitutes and Complements: Cross-price effects.</li>
+                        </ul>
+                        <li>Individual vs. Market Demand: Aggregation of individual demand curves.</li>
+                    </ul>
+                    <li><strong>Supply</strong></li>
+                    <ul>
+                        <li>Law of Supply: Direct relationship between price and quantity supplied.</li>
+                        <li>Determinants:</li>
+                        <ul>
+                            <li>Production Cost: Input prices, technology.</li>
+                            <li>Technology: Efficiency improvements shift supply curve.</li>
+                            <li>Expectations: Anticipated market conditions.</li>
+                            <li>Number of Sellers: Market entry/exit effects.</li>
+                        </ul>
+                        <li>Individual vs. Market Supply: Aggregation of individual firm supply.</li>
+                    </ul>
+                    <li><strong>Market Equilibrium</strong></li>
+                    <ul>
+                        <li>Equilibrium Price and Quantity: Intersection of supply and demand curves.</li>
+                        <li>Shifts and Movements:</li>
+                        <ul>
+                            <li>Movement along curves: Price changes.</li>
+                            <li>Shifts of curves: Changes in non-price determinants.</li>
+                        </ul>
+                        <li>Comparative Statics: Analysis of equilibrium changes due to parameter shifts.</li>
+                        <li>Disequilibrium and Adjustment:</li>
+                        <ul>
+                            <li>Surplus: Excess supply at a given price.</li>
+                            <li>Shortage: Excess demand at a given price.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Dynamic Analysis</strong></li>
+                    <ul>
+                        <li>Cobweb Model: Explains price fluctuations in markets with production lags.</li>
+                        <li>Expectations and Speculation: Role in shaping market dynamics.</li>
+                    </ul>
+                </ul>
+            </section>
 
-    <footer class="copyright">
-        <p>&copy; 2024. All rights reserved.</p>
-    </footer>
+            <section id="section3" style="--animation-order: 2;">
+                <h2><i class="fas fa-chart-line"></i> Elasticity</h2>
+                <ul>
+                    <li><strong>Price Elasticity of Demand (PED)</strong></li>
+                    <ul>
+                        <li>Definition: Measure of responsiveness of quantity demanded to price changes.</li>
+                        <li>Formula: % change in quantity demanded / % change in price.</li>
+                        <li>Types:</li>
+                        <ul>
+                            <li>Elastic (|PED| > 1): Quantity change > Price change.</li>
+                            <li>Inelastic (|PED| < 1): Quantity change < Price change.</li>
+                            <li>Unit Elastic (|PED| = 1): Quantity change = Price change.</li>
+                        </ul>
+                        <li>Determinants:</li>
+                        <ul>
+                            <li>Availability of substitutes.</li>
+                            <li>Necessity vs. luxury goods.</li>
+                            <li>Time horizon (short-run vs. long-run elasticity).</li>
+                        </ul>
+                        <li>Applications:</li>
+                        <ul>
+                            <li>Pricing strategies for firms.</li>
+                            <li>Tax incidence analysis.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Price Elasticity of Supply (PES)</strong></li>
+                    <ul>
+                        <li>Definition: Responsiveness of quantity supplied to price changes.</li>
+                        <li>Formula: % change in quantity supplied / % change in price.</li>
+                        <li>Determinants:</li>
+                        <ul>
+                            <li>Time period for production adjustment.</li>
+                            <li>Capacity utilization and scalability.</li>
+                            <li>Resource mobility and availability.</li>
+                        </ul>
+                        <li>Applications:</li>
+                        <ul>
+                            <li>Production planning.</li>
+                            <li>Supply chain management.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Cross-Price Elasticity</strong></li>
+                    <ul>
+                        <li>Definition: Effect of price change in one good on quantity demanded of another.</li>
+                        <li>Formula: % change in quantity demanded of good A / % change in price of good B.</li>
+                        <li>Interpretation:</li>
+                        <ul>
+                            <li>Positive: Substitutes.</li>
+                            <li>Negative: Complements.</li>
+                            <li>Zero: Independent goods.</li>
+                        </ul>
+                        <li>Applications:</li>
+                        <ul>
+                            <li>Product positioning and marketing strategies.</li>
+                            <li>Competitive analysis.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Income Elasticity of Demand</strong></li>
+                    <ul>
+                        <li>Definition: Responsiveness of demand to changes in consumer income.</li>
+                        <li>Formula: % change in quantity demanded / % change in income.</li>
+                        <li>Types:</li>
+                        <ul>
+                            <li>Normal Goods (Positive elasticity).</li>
+                            <li>Inferior Goods (Negative elasticity).</li>
+                            <li>Luxury vs. Necessity Goods.</li>
+                        </ul>
+                        <li>Applications:</li>
+                        <ul>
+                            <li>Market segmentation.</li>
+                            <li>Economic development analysis.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Arc vs. Point Elasticity</strong></li>
+                    <ul>
+                        <li>Point Elasticity: Elasticity at a specific point on the demand/supply curve.</li>
+                        <li>Arc Elasticity: Average elasticity over a range of the curve.</li>
+                    </ul>
+                    <li><strong>Advanced Elasticity Concepts</strong></li>
+                    <ul>
+                        <li>Constant Elasticity Functions: Mathematical properties and applications.</li>
+                        <li>Elasticity in Calculus: Derivative-based formulations.</li>
+                        <li>Cross-Elasticities in Demand Systems: Slutsky equation and demand interdependencies.</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section4" style="--animation-order: 3;">
+                <h2><i class="fas fa-user-circle"></i> Consumer Theory</h2>
+                <ul>
+                    <li><strong>Utility</strong></li>
+                    <ul>
+                        <li>Concepts:</li>
+                        <ul>
+                            <li>Cardinal vs. Ordinal Utility.</li>
+                            <li>Total Utility vs. Marginal Utility.</li>
+                        </ul>
+                        <li>Utility Functions:</li>
+                        <ul>
+                            <li>Mathematical representations of preferences.</li>
+                            <li>Common forms: Cobb-Douglas, CES (Constant Elasticity of Substitution).</li>
+                        </ul>
+                        <li>Marginal Utility:</li>
+                        <ul>
+                            <li>Additional satisfaction from consuming an extra unit.</li>
+                            <li>Law of Diminishing Marginal Utility.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Preferences and Indifference Curves</strong></li>
+                    <ul>
+                        <li>Axioms of Rational Choice:</li>
+                        <ul>
+                            <li>Completeness, Transitivity, Continuity, Non-satiation.</li>
+                        </ul>
+                        <li>Indifference Curves:</li>
+                        <ul>
+                            <li>Definition: Combinations of goods providing equal satisfaction.</li>
+                            <li>Properties: Downward sloping, convex to origin.</li>
+                        </ul>
+                        <li>Marginal Rate of Substitution (MRS):</li>
+                        <ul>
+                            <li>Rate at which a consumer is willing to substitute one good for another.</li>
+                            <li>Relationship to marginal utility.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Budget Constraint</strong></li>
+                    <ul>
+                        <li>Definition: Limit on consumption choices based on income and prices.</li>
+                        <li>Mathematical Representation:</li>
+                        <ul>
+                            <li>Linear equation in two-good model.</li>
+                            <li>Extensions to multiple goods.</li>
+                        </ul>
+                        <li>Effects of Income and Price Changes:</li>
+                        <ul>
+                            <li>Shifts and rotations of the budget line.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Consumer Choice and Optimization</strong></li>
+                    <ul>
+                        <li>Utility Maximization:</li>
+                        <ul>
+                            <li>Tangency condition: MRS = Price Ratio.</li>
+                            <li>Lagrangian method for constrained optimization.</li>
+                        </ul>
+                        <li>Corner Solutions:</li>
+                        <ul>
+                            <li>When tangency conditions don't hold.</li>
+                        </ul>
+                        <li>Applications:</li>
+                        <ul>
+                            <li>Deriving individual demand curves.</li>
+                            <li>Engel curves and income consumption curves.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Income and Substitution Effects</strong></li>
+                    <ul>
+                        <li>Slutsky Equation:</li>
+                        <ul>
+                            <li>Decomposing price effects into income and substitution components.</li>
+                        </ul>
+                        <li>Hicks vs. Slutsky Decomposition:</li>
+                        <ul>
+                            <li>Different approaches to isolating effects.</li>
+                        </ul>
+                        <li>Applications:</li>
+                        <ul>
+                            <li>Giffen goods phenomenon.</li>
+                            <li>Labor supply decisions (backward-bending supply curveistical vs. taste-based discrimination.</li>
+                            <li>Wage gaps and their explanations.</li>
+                        </ul>
+                        <li>Unions and Collective Bargaining:</li>
+                        <ul>
+                            <li>Effects on wages and employment.</li>
+                            <li>Bilateral monopoly model.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Capital Markets</strong></li>
+                    <ul>
+                        <li>Types of Capital:</li>
+                        <ul>
+                            <li>Physical capital vs. financial capital.</li>
+                        </ul>
+                        <li>Investment Decisions:</li>
+                        <ul>
+                            <li>Net Present Value (NPV) criterion.</li>
+                            <li>Internal Rate of Return (IRR).</li>
+                        </ul>
+                        <li>Cost of Capital:</li>
+                        <ul>
+                            <li>Weighted Average Cost of Capital (WACC).</li>
+                            <li>Capital Asset Pricing Model (CAPM).</li>
+                        </ul>
+                        <li>Efficient Market Hypothesis:</li>
+                        <ul>
+                            <li>Weak, semi-strong, and strong forms.</li>
+                        </ul>
+                        <li>Market for Loanable Funds:</li>
+                        <ul>
+                            <li>Equilibrium interest rate determination.</li>
+                            <li>Impact of government borrowing (crowding out).</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Land and Natural Resources</strong></li>
+                    <ul>
+                        <li>Economic Rent:</li>
+                        <ul>
+                            <li>Ricardian theory of rent.</li>
+                        </ul>
+                        <li>Resource Extraction:</li>
+                        <ul>
+                            <li>Hotelling's rule for non-renewable resources.</li>
+                        </ul>
+                        <li>Sustainability:</li>
+                        <ul>
+                            <li>Renewable vs. non-renewable resources.</li>
+                            <li>Tragedy of the commons.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Global Labor Markets</strong></li>
+                    <ul>
+                        <li>Outsourcing and Offshoring:</li>
+                        <ul>
+                            <li>Cost-benefit analysis for firms.</li>
+                            <li>Impact on domestic and foreign labor markets.</li>
+                        </ul>
+                        <li>Immigration and Labor Mobility:</li>
+                        <ul>
+                            <li>Effects on wage rates and employment.</li>
+                            <li>Skill-biased technological change.</li>
+                        </ul>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section8" style="--animation-order: 7;">
+                <h2><i class="fas fa-gamepad"></i> Advanced Game Theory</h2>
+                <ul>
+                    <li><strong>Dynamic Games</strong></li>
+                    <ul>
+                        <li>Definition: Games where players move sequentially.</li>
+                        <li>Extensive Form Representation: Tree diagrams showing the sequence of moves.</li>
+                        <li>Subgame Perfect Equilibrium: Refinement of Nash equilibrium for dynamic games.</li>
+                        <li>Applications:</li>
+                        <ul>
+                            <li>Entry deterrence strategies in business.</li>
+                            <li>Sequential bargaining in negotiations.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Bayesian Games</strong></li>
+                    <ul>
+                        <li>Concept: Games with incomplete information.</li>
+                        <li>Harsanyi Transformation: Converting games of incomplete information to games of imperfect information.</li>
+                        <li>Bayesian Nash Equilibrium: Equilibrium concept for games of incomplete information.</li>
+                        <li>Applications:</li>
+                        <ul>
+                            <li>Auctions with private valuations.</li>
+                            <li>Signaling games in labor markets and education.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Business Strategy Applications</strong></li>
+                    <ul>
+                        <li>Commitment Strategies: Using irreversible investments to deter entry.</li>
+                        <li>Reputation Building: Repeated games and the importance of reputation in business.</li>
+                        <li>Coopetition: Simultaneous competition and cooperation in oligopolistic markets.</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section9" style="--animation-order: 8;">
+                <h2><i class="fas fa-info-circle"></i> Information Economics</h2>
+                <ul>
+                    <li><strong>Adverse Selection</strong></li>
+                    <ul>
+                        <li>Definition: Market inefficiency due to information asymmetry before a transaction.</li>
+                        <li>Examples: Used car market (lemons problem), insurance markets.</li>
+                        <li>Solutions: Screening, signaling, market design.</li>
+                        <li>Business Applications:</li>
+                        <ul>
+                            <li>Employee hiring processes.</li>
+                            <li>Credit market lending practices.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Moral Hazard</strong></li>
+                    <ul>
+                        <li>Concept: Changes in behavior when individuals are protected from risk.</li>
+                        <li>Principal-Agent Problem: Misaligned incentives between principals and agents.</li>
+                        <li>Solutions: Incentive contracts, monitoring.</li>
+                        <li>Business Applications:</li>
+                        <ul>
+                            <li>Executive compensation design.</li>
+                            <li>Insurance policy structuring.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Signaling</strong></li>
+                    <ul>
+                        <li>Theory: Actions taken by informed parties to credibly convey information.</li>
+                        <li>Spence Signaling Model: Education as a signal in labor markets.</li>
+                        <li>Business Applications:</li>
+                        <ul>
+                            <li>Brand building and reputation management.</li>
+                            <li>Corporate financial decisions as signals to investors.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Screening</strong></li>
+                    <ul>
+                        <li>Concept: Uninformed parties designing mechanisms to elicit information.</li>
+                        <li>Self-Selection: Offering a menu of options to induce revelation of private information.</li>
+                        <li>Business Applications:</li>
+                        <ul>
+                            <li>Product line design for price discrimination.</li>
+                            <li>Job candidate assessment techniques.</li>
+                        </ul>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section10" style="--animation-order: 9;">
+                <h2><i class="fas fa-brain"></i> Behavioral Economics</h2>
+                <ul>
+                    <li><strong>Prospect Theory</strong></li>
+                    <ul>
+                        <li>Key Concepts:</li>
+                        <ul>
+                            <li>Reference dependence: Outcomes evaluated relative to a reference point.</li>
+                            <li>Loss aversion: Losses loom larger than equivalent gains.</li>
+                            <li>Diminishing sensitivity: Decreasing marginal impact of gains and losses.</li>
+                        </ul>
+                        <li>Value Function: S-shaped curve capturing risk attitudes.</li>
+                        <li>Probability Weighting: Overweighting of small probabilities, underweighting of large probabilities.</li>
+                        <li>Business Applications:</li>
+                        <ul>
+                            <li>Framing of product offerings and pricing strategies.</li>
+                            <li>Understanding consumer decision-making under uncertainty.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Mental Accounting</strong></li>
+                    <ul>
+                        <li>Definition: Cognitive operations used by individuals to organize, evaluate, and keep track of financial activities.</li>
+                        <li>Key Aspects:</li>
+                        <ul>
+                            <li>Categorization of expenditures.</li>
+                            <li>Treatment of opportunity costs.</li>
+                            <li>Sunk cost fallacy.</li>
+                        </ul>
+                        <li>Business Applications:</li>
+                        <ul>
+                            <li>Designing loyalty programs and bundled offerings.</li>
+                            <li>Structuring financial products and payment plans.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Behavioral Finance</strong></li>
+                    <ul>
+                        <li>Market Anomalies: Patterns in financial markets inconsistent with efficient market hypothesis.</li>
+                        <li>Investor Biases: Overconfidence, herding behavior, disposition effect.</li>
+                        <li>Business Applications:</li>
+                        <ul>
+                            <li>Designing investment products and services.</li>
+                            <li>Corporate finance decisions considering behavioral factors.</li>
+                        </ul>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section11" style="--animation-order: 10;">
+                <h2><i class="fas fa-building"></i> Advanced Industrial Organization</h2>
+                <ul>
+                    <li><strong>Two-Sided Markets</strong></li>
+                    <ul>
+                        <li>Definition: Markets where platforms facilitate interactions between two distinct user groups.</li>
+                        <li>Network Effects: Cross-side and same-side externalities.</li>
+                        <li>Pricing Strategies: Balancing act to get both sides on board.</li>
+                        <li>Business Examples: Credit card markets, operating systems, social media platforms.</li>
+                    </ul>
+                    <li><strong>Network Effects</strong></li>
+                    <ul>
+                        <li>Types: Direct (same-side) and indirect (cross-side) network effects.</li>
+                        <li>Critical Mass: Tipping point for widespread adoption.</li>
+                        <li>Winner-Take-All Dynamics: Markets where one platform dominates due to strong network effects.</li>
+                        <li>Business Strategies:</li>
+                        <ul>
+                            <li>Early user acquisition tactics.</li>
+                            <li>Compatibility and standardization decisions.</li>
+                        </ul>
+                    </ul>
+                    <li><strong>Digital Economy Business Models</strong></li>
+                    <ul>
+                        <li>Freemium Models: Basic services for free, premium features for a fee.</li>
+                        <li>Data Monetization: Leveraging user data for targeted advertising or insights.</li>
+                        <li>Platform Ecosystems: Creating value through third-party complementors.</li>
+                        <li>Implications for Competition Policy: Challenges in defining markets and assessing market power.</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section12" style="--animation-order: 11;">
+                <h2><i class="fas fa-auction"></i> Auction Theory</h2>
+                <ul>
+                    <li><strong>Auction Formats</strong></li>
+                    <ul>
+                        <li>Open Auctions:</li>
+                        <ul>
+                            <li>English (ascending bid).</li>
+                            <li>Dutch (descending bid).</li>
+                        </ul>
+                        <li>Sealed-Bid Auctions:</li>
+                        <ul>
+                            <li>First-price sealed-bid.</li>
+                            <li>Second-price sealed-bid (Vickrey auction).</li>
+                        </ul>
+                        <li>Common Value vs. Private Value Auctions: Differences in information structure.</li>
+                    </ul>
+                    <li><strong>Revenue Equivalence Theorem</strong></li>
+                    <ul>
+                        <li>Statement: Under certain conditions, different auction formats yield the same expected revenue.</li>
+                        <li>Assumptions and Implications: Importance for auction design.</li>
+                    </ul>
+                    <li><strong>Business and Policy Applications</strong></li>
+                    <ul>
+                        <li>Spectrum Auctions: Allocation of radio frequencies.</li>
+                        <li>Treasury Bond Auctions: Government debt issuance.</li>
+                        <li>Online Marketplaces: eBay, Google AdWords.</li>
+                        <li>Procurement Auctions: Reverse auctions for supply contracts.</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section13" style="--animation-order: 12;">
+                <h2><i class="fas fa-flask"></i> Experimental Economics</h2>
+                <ul>
+                    <li><strong>Methodology</strong></li>
+                    <ul>
+                        <li>Laboratory Experiments: Controlled environments to test economic theories.</li>
+                        <li>Field Experiments: Real-world settings with randomized interventions.</li>
+                        <li>Design Considerations: Incentive compatibility, external validity.</li>
+                    </ul>
+                    <li><strong>Key Findings</strong></li>
+                    <ul>
+                        <li>Ultimatum Game: Deviations from pure self-interest predictions.</li>
+                        <li>Public Goods Games: Free-riding and cooperation dynamics.</li>
+                        <li>Market Experiments: Testing efficiency of different market mechanisms.</li>
+                    </ul>
+                    <li><strong>Business Applications</strong></li>
+                    <ul>
+                        <li>A/B Testing: Experimental approach to product and website design.</li>
+                        <li>Organizational Design: Testing incentive structures and team dynamics.</li>
+                        <li>Consumer Behavior: Experimental insights for marketing strategies.</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section14" style="--animation-order: 13;">
+                <h2><i class="fas fa-chess"></i> Market Design</h2>
+                <ul>
+                    <li><strong>Principles</strong></li>
+                    <ul>
+                        <li>Thickness: Bringing together a sufficient number of market participants.</li>
+                        <li>Congestion Management: Handling large numbers of transactions quickly.</li>
+                        <li>Safety: Making it safe to participate with truthful information.</li>
+                    </ul>
+                    <li><strong>Matching Markets</strong></li>
+                    <ul>
+                        <li>Deferred Acceptance Algorithm: Stable matching in two-sided markets.</li>
+                        <li>School Choice Systems: Designing efficient and fair school assignment mechanisms.</li>
+                        <li>Medical Residency Matching: National Resident Matching Program (NRMP) as an example.</li>
+                    </ul>
+                    <li><strong>Kidney Exchange</strong></li>
+                    <ul>
+                        <li>Paired Donation: Matching incompatible donor-patient pairs.</li>
+                        <li>Chain Donations: Initiated by altruistic donors.</li>
+                        <li>Algorithmic Approaches: Optimization in kidney exchange programs.</li>
+                    </ul>
+                    <li><strong>Business Applications</strong></li>
+                    <ul>
+                        <li>Labor Market Platforms: Designing efficient job matching systems.</li>
+                        <li>Supply Chain Optimization: Applying matching principles to supplier-buyer relationships.</li>
+                        <li>Resource Allocation in Organizations: Efficient project or task assignment.</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section15" style="--animation-order: 14;">
+                <h2><i class="fas fa-calculator"></i> Advanced Econometric Methods</h2>
+                <ul>
+                    <li><strong>Instrumental Variables</strong></li>
+                    <ul>
+                        <li>Concept: Using instruments to address endogeneity issues.</li>
+                        <li>Two-Stage Least Squares (2SLS): Implementation and interpretation.</li>
+                        <li>Applications: Estimating returns to education, impact of institutions on economic growth.</li>
+                    </ul>
+                    <li><strong>Difference-in-Differences</strong></li>
+                    <ul>
+                        <li>Method: Comparing treatment and control groups before and after an intervention.</li>
+                        <li>Parallel Trends Assumption: Key identifying assumption.</li>
+                        <li>Applications: Evaluating policy changes, natural experiments in business settings.</li>
+                    </ul>
+                    <li><strong>Regression Discontinuity Design</strong></li>
+                    <ul>
+                        <li>Sharp RD: Treatment assigned based on a cutoff value of a running variable.</li>
+                        <li>Fuzzy RD: Probability of treatment changes discontinuously at the cutoff.</li>
+                        <li>Applications: Evaluating programs with eligibility thresholds, analyzing close elections.</li>
+                    </ul>
+                    <li><strong>Business Applications</strong></li>
+                    <ul>
+                        <li>Causal Impact of Marketing Campaigns: Using quasi-experimental designs.</li>
+                        <li>Program Evaluation: Assessing the effectiveness of business initiatives or policies.</li>
+                        <li>Demand Estimation: Addressing endogeneity in price-quantity relationships.</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section16" style="--animation-order: 15;">
+                <h2><i class="fas fa-leaf"></i> Environmental Economics</h2>
+                <ul>
+                    <li><strong>Externalities</strong></li>
+                    <ul>
+                        <li>Definition: Costs or benefits affecting third parties not involved in the transaction.</li>
+                        <li>Types: Positive vs. negative, production vs. consumption externalities.</li>
+                        <li>Coase Theorem: Efficiency through bargaining in absence of transaction costs.</li>
+                    </ul>
+                    <li><strong>Pigouvian Taxes</strong></li>
+                    <ul>
+                        <li>Concept: Taxes to internalize negative externalities.</li>
+                        <li>Optimal Tax Level: Equating marginal social cost to marginal social benefit.</li>
+                        <li>Applications: Carbon taxes, congestion charges.</li>
+                    </ul>
+                    <li><strong>Cap-and-Trade Systems</strong></li>
+                    <ul>
+                        <li>Mechanism: Setting a cap on total emissions and allowing trade of permits.</li>
+                        <li>Efficiency Properties: Achieving cost-effective reduction in emissions.</li>
+                        <li>Real-World Examples: EU Emissions Trading System, US Acid Rain Program.</li>
+                    </ul>
+                    <li><strong>Business Implications</strong></li>
+                    <ul>
+                        <li>Corporate Social Responsibility: Voluntary internalization of externalities.</li>
+                        <li>Green Technology Innovation: Incentives and strategic responses to environmental policies.</li>
+                        <li>Risk Management: Adapting to climate change and environmental regulations.</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section17" style="--animation-order: 16;">
+                <h2><i class="fas fa-vote-yea"></i> Public Choice Theory</h2>
+                <ul>
+                    <li><strong>Collective Decision Making</strong></li>
+                    <ul>
+                        <li>Voting Paradoxes: Arrow's Impossibility Theorem, Condorcet Paradox.</li>
+                        <li>Median Voter Theorem: Convergence to median preference under certain conditions.</li>
+                        <li>Logrolling: Vote trading in legislative processes.</li>
+                    </ul>
+                    <li><strong>Bureaucracy and Regulation</strong></li>
+                    <ul>
+                        <li>Principal-Agent Problems in Government: Misaligned incentives between voters, politicians, and bureaucrats.</li>
+                        <li>Regulatory Capture: Industries influencing their regulators.</li>
+                        <li>Rent-Seeking Behavior: Efforts to capture economic rent through political processes.</li>
+                    </ul>
+                    <li><strong>Business Strategy in Political Environments</strong></li>
+                    <ul>
+                        <li>Lobbying Strategies: Influencing policy outcomes.</li>
+                        <li>Regulatory Compliance: Optimizing responses to regulatory frameworks.</li>
+                        <li>Political Risk Assessment: Evaluating policy uncertainty in business decisions.</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section id="section18" style="--animation-order: 17;">
+                <h2><i class="fas fa-tools"></i> Mechanism Design</h2>
+                <ul>
+                    <li><strong>Principles</strong></li>
+                    <ul>
+                        <li>Incentive Compatibility: Designing mechanisms where truthful revelation is optimal.</li>
+                        <li>Individual Rationality: Ensuring voluntary participation.</li>
+                        <li>Budget Balance: Mechanisms that don't require external subsidies.</li>
+                    </ul>
+                    <li><strong>Contract Theory</strong></li>
+                    <ul>
+                        <li>Optimal Contracting: Designing contracts to align incentives.</li>
+                        <li>Incomplete Contracts: Dealing with unforeseen contingencies.</li>
+                        <li>Relational Contracts: Self-enforcing agreements in repeated interactions.</li>
+                    </ul>
+                    <li><strong>Organizational Design Applications</strong></li>
+                    <ul>
+                        <li>Compensation Structures: Designing incentive-compatible pay schemes.</li>
+                        <li>Team Production: Addressing free-riding in collaborative environments.</li>
+                        <li>Information Systems: Designing mechanisms for efficient information sharing within organizations.</li>
+                    </ul>
+                </ul>
+            </section>
+        </main>
+    </div>
+    <button id="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+    <noscript>
+        <p>JavaScript is disabled in your browser. Some features of this page may not work correctly.</p>
+    </noscript>
+    <script>
+        // Simple search functionality
+        document.getElementById('search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('section').forEach(section => {
+                const content = section.textContent.toLowerCase();
+                section.style.display = content.includes(searchTerm) ? 'block' : 'none';
+            });
+        });
+
+        // Back to Top functionality
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Dark/Light mode toggle
+        const modeToggle = document.getElementById('mode-toggle');
+        const modeIcon = modeToggle.querySelector('i');
+        modeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            if (document.body.classList.contains('light-mode')) {
+                modeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                modeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+            localStorage.setItem('mode', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+
+        // Check for saved mode preference
+        if (localStorage.getItem('mode') === 'light') {
+            document.body.classList.add('light-mode');
+            modeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // Progress bar
+        window.onscroll = function() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
+        };
+    </script>
 </body>
 </html>
